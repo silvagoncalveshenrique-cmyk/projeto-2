@@ -4,20 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio de Hash</title>
+    <title>Calculadora de Hash</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8f0fe;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .calculadora {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px #999;
+        }
+
+        input {
+            padding: 12px;
+            width: 85%;
+            margin: 10px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>Desafio: Colisão de Hash</h1>
+    <div class="calculadora">
+        <h1>Calculadora de Hash</h1>
 
-    <p>Vamos testar duas palavras diferentes:</p>
+        <p>Digite duas palavras diferentes:</p>
 
-    <p>Palavra 1: amor</p>
-    <p>Palavra 2: roma</p>
+        <input type="text" id="palavra1" placeholder="Primeira palavra">
 
-    <button onclick="testarHash()">Calcular Hash</button>
+        <input type="text" id="palavra2" placeholder="Segunda palavra">
 
-    <h2 id="resultado"></h2>
+        <br>
+
+        <button onclick="calcularHash()">Calcular Hash</button>
+
+        <div id="resultado"></div>
+    </div>
 
     <script>
         function calcula_hash(palavra) {
@@ -30,17 +76,34 @@
             return hash;
         }
 
-        function testarHash() {
-            let palavra1 = "amor";
-            let palavra2 = "roma";
+        function calcularHash() {
+            let palavra1 = document.getElementById("palavra1").value;
+            let palavra2 = document.getElementById("palavra2").value;
+
+            let resultado = document.getElementById("resultado");
+
+            if (palavra1.length < 2 || palavra2.length < 2) {
+                resultado.innerHTML = "Digite duas palavras com pelo menos duas letras!";
+                return;
+            }
 
             let hash1 = calcula_hash(palavra1);
             let hash2 = calcula_hash(palavra2);
 
-            document.getElementById("resultado").innerHTML =
-                "Hash de amor: " + hash1 + "<br>" +
-                "Hash de roma: " + hash2 + "<br><br>" +
-                "As duas palavras possuem o mesmo hash!";
+            resultado.innerHTML =
+                "Hash da primeira palavra: " + hash1 +
+                "<br>Hash da segunda palavra: " + hash2;
+
+            if (palavra1.toLowerCase() !== palavra2.toLowerCase() && hash1 === hash2) {
+                resultado.innerHTML +=
+                    "<br><br>🎉 Encontramos uma colisão de hash!";
+            } else if (hash1 === hash2) {
+                resultado.innerHTML +=
+                    "<br><br>As palavras são iguais. Digite palavras diferentes!";
+            } else {
+                resultado.innerHTML +=
+                    "<br><br>As palavras geraram hashes diferentes. Tente novamente!";
+            }
         }
     </script>
 
