@@ -2,247 +2,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ransomware e Criptografia</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #0b1120;
-    color: #e2e8f0;
-    line-height: 1.6;
-}
-
-header {
-    background: #111c2e;
-    padding: 25px;
-    text-align: center;
-    border-bottom: 2px solid #00e676;
-}
-
-header h1 {
-    color: #00e676;
-    font-size: 32px;
-}
-
-nav {
-    margin-top: 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 10px;
-}
-
-nav a:hover {
-    color: #00e676;
-}
-
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #111c2e, #172b46);
-}
-
-.hero h2 {
-    color: #00e676;
-    font-size: 35px;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    max-width: 700px;
-    margin: auto;
-}
-
-.container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 35px 20px;
-}
-
-.card {
-    background: #172438;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    border-left: 4px solid #00e676;
-}
-
-.card h2 {
-    color: #00e676;
-    margin-bottom: 15px;
-}
-
-.card ul {
-    padding-left: 25px;
-}
-
-.destaque {
-    color: #00e676;
-    font-weight: bold;
-}
-
-button {
-    background: #00e676;
-    color: #07130d;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-button:hover {
-    background: #00c765;
-}
-
-footer {
-    text-align: center;
-    padding: 25px;
-    background: #111c2e;
-    color: #94a3b8;
-    margin-top: 30px;
-}
-
-#mensagem {
-    margin-top: 15px;
-    color: #00e676;
-    font-weight: bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio de Hash</title>
 </head>
-
 <body>
 
-<header>
-    <h1>🔐 Cyber Security</h1>
-    <nav>
-        <a href="#ransomware">Ransomware</a>
-        <a href="#criptografia">Criptografia</a>
-        <a href="#protecao">Proteção</a>
-    </nav>
-</header>
+    <h1>Desafio: Colisão de Hash</h1>
 
-<section class="hero">
-    <h2>Ransomware e Criptografia</h2>
-    <p>
-        Conheça duas tecnologias importantes do mundo da
-        segurança digital e entenda como proteger seus dados
- contra ameaças virtuais.
-    </p>
-    <button onclick="mostrarMensagem()">Explorar conteúdo</button>
-    <p id="mensagem"></p>
-</section>
+    <p>Vamos testar duas palavras diferentes:</p>
 
-<main class="container">
+    <p>Palavra 1: amor</p>
+    <p>Palavra 2: roma</p>
 
-    <section class="card" id="ransomware">
-        <h2>💻 O que é Ransomware?</h2>
-        <p>
-            Ransomware é um tipo de malware que bloqueia o acesso
-            aos arquivos ou sistemas de uma vítima, geralmente
-            utilizando criptografia, e exige um pagamento
-            para tentar devolver o acesso.
-        </p>
+    <button onclick="testarHash()">Calcular Hash</button>
 
-        <h3>Como ele pode chegar até um computador?</h3>
-        <ul>
-            <li>E-mails falsos e anexos maliciosos.</li>
-            <li>Downloads de arquivos suspeitos.</li>
-            <li>Programas desatualizados.</li>
-            <li>Sites e links fraudulentos.</li>
-        </ul>
-    </section>
+    <h2 id="resultado"></h2>
 
-    <section class="card" id="criptografia">
-        <h2>🔐 O que é Criptografia?</h2>
-        <p>
-            Criptografia é uma técnica utilizada para proteger
-            informações, transformando dados legíveis em
-            informações codificadas que só podem ser interpretadas
-            por quem possui a chave adequada.
-        </p>
+    <script>
+        function calcula_hash(palavra) {
+            let hash = 0;
 
-        <h3>Tipos de criptografia</h3>
+            for (let i = 0; i < palavra.length; i++) {
+                hash += palavra.charCodeAt(i);
+            }
 
-        <p class="destaque">1. Criptografia Simétrica</p>
-        <p>
-            Utiliza a mesma chave para criptografar e descriptografar
-            informações.
-        </p>
+            return hash;
+        }
 
-        <p class="destaque">2. Criptografia Assimétrica</p>
-        <p>
-            Utiliza duas chaves: uma pública e outra privada.
-            A chave pública pode ser compartilhada, enquanto a
-            privada deve permanecer protegida.
-        </p>
-    </section>
+        function testarHash() {
+            let palavra1 = "amor";
+            let palavra2 = "roma";
 
-    <section class="card">
-        <h2>⚠️ Como funciona um ataque de Ransomware?</h2>
-        <ul>
-            <li>O criminoso consegue acesso ao dispositivo.</li>
-            <li>O malware é executado.</li>
-            <li>Os arquivos podem ser criptografados.</li>
-            <li>A vítima recebe uma mensagem de resgate.</li>
-            <li>O acesso aos dados pode ficar comprometido.</li>
-        </ul>
-        <p>
-            Importante: pagar o resgate não garante a recuperação
-            dos arquivos.
-        </p>
-    </section>
+            let hash1 = calcula_hash(palavra1);
+            let hash2 = calcula_hash(palavra2);
 
-    <section class="card" id="protecao">
-        <h2>🛡️ Como se proteger?</h2>
-        <ul>
-            <li>Mantenha o sistema operacional atualizado.</li>
-            <li>Utilize antivírus e ferramentas de segurança.</li>
-            <li>Não abra links ou anexos suspeitos.</li>
-            <li>Faça backups frequentes dos seus arquivos.</li>
-            <li>Utilize senhas fortes e autenticação em dois fatores.</li>
-            <li>Evite baixar programas de fontes desconhecidas.</li>
-        </ul>
-    </section>
-
-    <section class="card">
-        <h2>🎯 Conclusão</h2>
-        <p>
-            A criptografia é essencial para proteger informações
-            e garantir a privacidade digital. Já o ransomware
-            demonstra como tecnologias de criptografia podem
-            ser utilizadas de maneira criminosa.
-        </p>
-        <p>
-            Conhecimento e prevenção são fundamentais para
-            manter nossos dados seguros na internet.
-        </p>
-    </section>
-
-</main>
-
-<footer>
-    <p>Projeto Educacional | Segurança da Informação</p>
-    <p>Desenvolvido para estudos - 2026</p>
-</footer>
-
-<script>
-function mostrarMensagem() {
-    document.getElementById("mensagem").innerText =
-        "Bem-vindo! Explore os conceitos de segurança digital.";
-}
-</script>
+            document.getElementById("resultado").innerHTML =
+                "Hash de amor: " + hash1 + "<br>" +
+                "Hash de roma: " + hash2 + "<br><br>" +
+                "As duas palavras possuem o mesmo hash!";
+        }
+    </script>
 
 </body>
 </html>
